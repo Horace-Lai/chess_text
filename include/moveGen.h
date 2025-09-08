@@ -12,7 +12,11 @@ private:
 
   bool isAllyAt(Position pos, PieceColour myColour);
 
-  bool isCheckedAt(const Position pos, PieceColour myColour);
+  bool isInCheck(PieceColour myColour);
+
+  bool isAttackedAt(const Position pos, PieceColour myColour);
+
+  bool isMoveLegal();
 
 public:
 
@@ -35,4 +39,14 @@ private:
 
   void getKingMoves(const Position from, const PieceColour colour, std::vector<Position> &moves); 
   
+  bool isAttackedByPawn(const Position pos, const PieceColour attackColour);
+
+  bool isAttackedByKnight(const Position pos, const PieceColour attackColour);
+
+  bool isAttackedByBishopOrQueen(const Position pos, const PieceColour attackColour);
+
+  bool isAttackedByRookOrQueen(const Position pos, const PieceColour attackColour);
+
+  bool isAttackedByKing(const Position pos, const PieceColour attackColour);
+
 };

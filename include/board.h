@@ -11,6 +11,8 @@ public:
   Board();
 
   Piece getPiece(Position pos);
+
+  Position getKingPos(PieceColour myColour);
   
   void print();
 

@@ -6,7 +6,7 @@ bool Position::operator==(const Position &other) const { return row == other.row
   
 bool Position::operator!=(const Position &other) const { return !(*this == other); }
 
-bool Position::isValid() { return (row < 8 && row >= 0 && col < 8 && col >= 0); }
+bool Position::isValid() const { return (row < 8 && row >= 0 && col < 8 && col >= 0); }
 
 
 PieceColour Piece::getColour() {

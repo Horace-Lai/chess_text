@@ -20,7 +20,6 @@ int main()
     bool legal = false;
     std::vector<Position> legalMoves = moveGen.getLegalMoves(from);
     for(auto legalMove : legalMoves) {
-      std::cout << legalMove.row << " " << legalMove.col << "\n";
       if (legalMove == to) {
         legal = true;
         break;

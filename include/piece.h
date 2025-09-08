@@ -11,7 +11,7 @@ struct Position
   
   bool operator!=(const Position &other) const;
 
-  bool isValid();
+  bool isValid() const;
 
 };
 
