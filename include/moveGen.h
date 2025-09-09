@@ -6,30 +6,33 @@ class MoveGenerator {
 private:
   Board& board;
 
-  bool isEnemyAt(Position pos, PieceColour myColour);
+  bool isEnemyAt(const Position pos, const PieceColour myColour);
 
-  bool isEmptyAt(Position pos);
+  bool isEmptyAt(const Position pos);
 
-  bool isAllyAt(Position pos, PieceColour myColour);
+  bool isAllyAt(const Position pos, const PieceColour myColour);
 
-  bool isInCheck(PieceColour myColour);
+  bool isInCheck(const PieceColour myColour);
 
-  bool isAttackedAt(const Position pos, PieceColour myColour);
+  bool isAttackedAt(const Position pos, const PieceColour myColour);
 
-  bool isMoveLegal();
+  std::vector<Position> getLegalMoves(const Position from);
 
 public:
 
   MoveGenerator(Board &board): board(board) {}
+  
+  bool isMoveLegal(Position from, Position to, PieceColour myColour);
 
-  std::vector<Position> getLegalMoves(Position from);
+  bool isCheckmated(const PieceColour myColour);
 
 private:
+
   void getPawnMoves(const Position from, const PieceColour colour, std::vector<Position> &moves);
 
   void getKnightMoves(const Position from, const PieceColour colour, std::vector<Position> &moves);
 
-  void getSlidingMoves(const Position from, const PieceColour colour, std::vector<Position> &moves, std::vector<Position> &directions);
+  void getSlidingMoves(const Position from, const PieceColour colour, std::vector<Position> &moves, const std::vector<Position> &directions);
 
   void getBishopMoves(const Position from, const PieceColour colour, std::vector<Position> &moves);
 

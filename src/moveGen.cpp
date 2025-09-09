@@ -1,26 +1,26 @@
 #include "moveGen.h"
 
-bool MoveGenerator::isEnemyAt(Position pos, PieceColour myColour) {
+bool MoveGenerator::isEnemyAt(const Position pos,const PieceColour myColour) {
   if (!pos.isValid()) return false;
   Piece piece = board.getPiece(pos);
   return !piece.isEmpty() && piece.getColour() != myColour;
 }
 
 
-bool MoveGenerator::isEmptyAt(Position pos) {
+bool MoveGenerator::isEmptyAt(const Position pos) {
   if (!pos.isValid()) return false;
   return board.getPiece(pos).isEmpty();
 }
 
 
-bool MoveGenerator::isAllyAt(Position pos, PieceColour myColour) {
+bool MoveGenerator::isAllyAt(const Position pos, const PieceColour myColour) {
   if (!pos.isValid()) return false;
   Piece piece = board.getPiece(pos);
   return !piece.isEmpty() && piece.getColour() == myColour;
 }
 
 
-bool MoveGenerator::isInCheck(PieceColour myColour) {
+bool MoveGenerator::isInCheck(const PieceColour myColour) {
 
   Position king_pos = board.getKingPos(myColour);
 
@@ -30,15 +30,13 @@ bool MoveGenerator::isInCheck(PieceColour myColour) {
 
 }
 
-bool MoveGenerator::isAttackedAt(const Position pos, PieceColour attackerColour) {
+bool MoveGenerator::isAttackedAt(const Position pos, const PieceColour attackerColour) {
   return (isAttackedByPawn(pos, attackerColour) ||
           isAttackedByKnight(pos, attackerColour) ||
           isAttackedByBishopOrQueen(pos, attackerColour) ||
           isAttackedByRookOrQueen(pos, attackerColour) ||
           isAttackedByKing(pos, attackerColour));
 }
-
-
 
 std::vector<Position> MoveGenerator::getLegalMoves(Position from) {
   Piece piece = board.getPiece(from);
@@ -70,6 +68,30 @@ std::vector<Position> MoveGenerator::getLegalMoves(Position from) {
   }
   return moves;
 }
+
+bool MoveGenerator::isMoveLegal(Position from, Position to, PieceColour myColour) {
+  std::vector<Position> legalMoves = getLegalMoves(from);
+  Piece capturedPiece = board.getPiece(to);
+  for (const auto& move : legalMoves) {
+    if (move == to) {
+      board.move(from, to);
+      if (!isInCheck(myColour)) {
+        board.undoMove(from, to, capturedPiece);
+        return true;
+      } else {
+        board.undoMove(from, to, capturedPiece);
+        return false;
+      }
+    }
+  }
+  return false;
+}
+
+bool MoveGenerator::isCheckmated(const PieceColour myColour) {
+  
+}
+
+
 
 
 void MoveGenerator::getPawnMoves(const Position from, const PieceColour colour, std::vector<Position> &moves) {
@@ -106,7 +128,7 @@ void MoveGenerator::getKnightMoves(const Position from, const PieceColour colour
 }
 
 
-void MoveGenerator::getSlidingMoves(const Position from, const PieceColour colour, std::vector<Position> &moves, std::vector<Position> &directions) {
+void MoveGenerator::getSlidingMoves(const Position from, const PieceColour colour, std::vector<Position> &moves, const std::vector<Position> &directions) {
   for (auto direction: directions) {
     for (int i = 1; i < 8; i++) {
       Position target(from.row + i * direction.row, from.col + i * direction.col);

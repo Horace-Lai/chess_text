@@ -2,8 +2,6 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -Wpedantic -Werror -Wno-unknown-pragmas -Iinclude
 
-LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system
-
 # Project structure
 TARGET = chess
 

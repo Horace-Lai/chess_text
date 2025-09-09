@@ -27,11 +27,11 @@ Board::Board()
 
 
 
-Piece Board::getPiece(Position pos) {
+Piece Board::getPiece(const Position pos) const {
   return grid[pos.row][pos.col];
 }
 
-Position Board::getKingPos(PieceColour myColour) {
+Position Board::getKingPos(const PieceColour myColour) const{
   for(int row = 0; row < 8; row++) {
     for(int col = 0; col < 8; col++) {
       Piece piece(grid[row][col]);
@@ -61,9 +61,14 @@ void Board::print()
 }
 
 
-
 void Board::move(Position from, Position to) {
   Piece piece = grid[from.row][from.col];
   grid[from.row][from.col] = Piece(PieceColour::none, PieceType::none);
   grid[to.row][to.col] = piece;
+}
+
+void Board::undoMove(Position from, Position to, Piece CapturedPiece) {
+  Piece piece = grid[to.row][to.col];
+  grid[to.row][to.col] = CapturedPiece;
+  grid[from.row][from.col] = piece;
 }

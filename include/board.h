@@ -10,13 +10,15 @@ private:
 public:
   Board();
 
-  Piece getPiece(Position pos);
+  Piece getPiece(const Position pos) const;
 
-  Position getKingPos(PieceColour myColour);
+  Position getKingPos(const PieceColour myColour) const;
   
   void print();
 
   void move(Position from, Position to);
+
+  void undoMove(Position from, Position to, Piece capturedPiece);
 
 };
 

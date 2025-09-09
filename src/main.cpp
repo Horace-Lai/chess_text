@@ -16,17 +16,9 @@ int main()
       
     Position from = Position(8 - (start[1] - '0'), start[0] - 'a' );
     Position to = Position(8 - (des[1] - '0'), des[0] - 'a' );
+
   
-    bool legal = false;
-    std::vector<Position> legalMoves = moveGen.getLegalMoves(from);
-    for(auto legalMove : legalMoves) {
-      if (legalMove == to) {
-        legal = true;
-        break;
-      }
-    }
-  
-    if (legal) {
+    if (moveGen.isMoveLegal(from, to, board.getPiece(from).getColour())) {
       board.move(from, to);
     } else {
       std::cout << "illegal" << "\n";
