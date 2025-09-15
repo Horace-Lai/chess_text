@@ -52,12 +52,13 @@ void Board::print()
     std::cout << 8 - row  << " ";
     for (int col = 0; col < 8; col++)
     {
-      std::cout << grid[row][col].toString() << " ";
+      std::cout << grid[row][col].typeToString() << " ";
     }
     std::cout << "\n";
   }
   std::cout << "  a  b  c  d  e  f  g  h\n";
-  return;
+  std::cout << "\n" << "Input move: ";
+  
 }
 
 

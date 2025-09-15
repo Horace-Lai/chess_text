@@ -50,6 +50,6 @@ public:
 
   bool isEmpty();
 
-  std::string toString();
+  std::string typeToString();
   
 };

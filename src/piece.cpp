@@ -18,7 +18,7 @@ PieceType Piece::getType() {
 bool Piece::isEmpty() {
   return (colour == PieceColour::none);
 }
-std::string Piece::toString()
+std::string Piece::typeToString()
 {
   if (isEmpty()) return "--";
   std::string result = "";

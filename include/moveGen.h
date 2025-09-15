@@ -14,7 +14,11 @@ private:
 
   bool isInCheck(const PieceColour myColour);
 
+  bool isInCheckAfter(const Position to, const Position from, const PieceColour myColour);
+
   bool isAttackedAt(const Position pos, const PieceColour myColour);
+
+  bool hasLegalMoves(const PieceColour myColour);
 
   std::vector<Position> getLegalMoves(const Position from);
 
@@ -22,9 +26,11 @@ public:
 
   MoveGenerator(Board &board): board(board) {}
   
-  bool isMoveLegal(Position from, Position to, PieceColour myColour);
+  bool isMoveLegal(Position from, Position to);
 
   bool isCheckmated(const PieceColour myColour);
+
+  bool isStalemated(const PieceColour myColour);
 
 private:
 
